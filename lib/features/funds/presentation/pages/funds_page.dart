@@ -1,15 +1,13 @@
-import 'package:ceiba_project/core/util/currency_input_formatter.dart';
-import 'package:ceiba_project/core/util/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/enums/enums.dart';
+import '../../../../core/util/currency_input_formatter.dart';
+import '../../../../core/util/utils.dart';
 import '../../domain/entities/fund.dart';
 import '../../domain/entities/fund_transaction.dart';
 import '../bloc/funds_bloc.dart';
-import '../bloc/funds_event.dart';
-import '../bloc/funds_state.dart';
 import '../widgets/fund_tile.dart';
 import '../widgets/transaction_tile.dart';
 

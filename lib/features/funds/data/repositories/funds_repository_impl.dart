@@ -1,12 +1,11 @@
-import 'package:ceiba_project/core/errors/exceptions.dart';
-import 'package:ceiba_project/core/errors/failures.dart';
-import 'package:ceiba_project/core/usecases/usecase.dart';
-import 'package:ceiba_project/features/funds/domain/entities/fund.dart';
-import 'package:ceiba_project/features/funds/domain/entities/fund_transaction.dart';
-import 'package:ceiba_project/features/funds/domain/repositories/funds_repository.dart';
-import 'package:ceiba_project/features/funds/data/datasources/funds_local_data_source.dart';
-
 import '../../../../core/enums/notification_type_enum.dart';
+import '../../../../core/errors/exceptions.dart';
+import '../../../../core/errors/failures.dart';
+import '../../../../core/usecases/usecase.dart';
+import '../../domain/entities/fund.dart';
+import '../../domain/entities/fund_transaction.dart';
+import '../../domain/repositories/funds_repository.dart';
+import '../datasources/funds_local_data_source.dart';
 
 class FundsRepositoryImpl implements FundsRepository {
   final FundsLocalDataSource localDataSource;

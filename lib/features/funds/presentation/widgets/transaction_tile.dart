@@ -1,6 +1,6 @@
-import 'package:ceiba_project/core/util/utils.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../core/util/utils.dart';
 import '../../domain/entities/fund_transaction.dart';
 
 class TransactionTile extends StatelessWidget {

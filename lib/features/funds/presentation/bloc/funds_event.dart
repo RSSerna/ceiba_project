@@ -1,6 +1,4 @@
-import 'package:equatable/equatable.dart';
-
-import '../../../../core/enums/notification_type_enum.dart';
+part of 'funds_bloc.dart';
 
 abstract class FundsEvent extends Equatable {
   const FundsEvent();

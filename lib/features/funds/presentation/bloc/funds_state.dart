@@ -1,7 +1,4 @@
-import 'package:equatable/equatable.dart';
-
-import '../../domain/entities/fund.dart';
-import '../../domain/entities/fund_transaction.dart';
+part of 'funds_bloc.dart';
 
 enum FundsStatus { initial, loading, success, failure }
 

@@ -1,10 +1,9 @@
 import 'dart:async';
 
-import 'package:ceiba_project/core/errors/exceptions.dart';
-import 'package:ceiba_project/features/funds/data/models/fund_model.dart';
-import 'package:ceiba_project/features/funds/data/models/fund_transaction_model.dart';
-
 import '../../../../core/enums/enums.dart';
+import '../../../../core/errors/exceptions.dart';
+import '../models/fund_model.dart';
+import '../models/fund_transaction_model.dart';
 
 abstract class FundsLocalDataSource {
   Future<List<FundModel>> getFunds();

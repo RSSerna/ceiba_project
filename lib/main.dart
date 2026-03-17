@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'injection.dart';
 import 'features/funds/presentation/bloc/funds_bloc.dart';
-import 'features/funds/presentation/bloc/funds_event.dart';
 import 'features/funds/presentation/pages/funds_page.dart';
 
 Future<void> main() async {

@@ -1,15 +1,19 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:ceiba_project/core/errors/failures.dart';
-import 'package:ceiba_project/core/usecases/usecase.dart';
-import 'package:ceiba_project/features/funds/domain/usecases/cancel_subscription.dart';
-import 'package:ceiba_project/features/funds/domain/usecases/get_balance.dart';
-import 'package:ceiba_project/features/funds/domain/usecases/get_funds.dart';
-import 'package:ceiba_project/features/funds/domain/usecases/get_transactions.dart';
-import 'package:ceiba_project/features/funds/domain/usecases/subscribe_to_fund.dart';
+import '../../../../core/enums/notification_type_enum.dart';
+import '../../../../core/errors/failures.dart';
+import '../../../../core/usecases/usecase.dart';
+import '../../domain/entities/fund.dart';
+import '../../domain/entities/fund_transaction.dart';
+import '../../domain/usecases/cancel_subscription.dart';
+import '../../domain/usecases/get_balance.dart';
+import '../../domain/usecases/get_funds.dart';
+import '../../domain/usecases/get_transactions.dart';
+import '../../domain/usecases/subscribe_to_fund.dart';
 
-import 'funds_event.dart';
-import 'funds_state.dart';
+part 'funds_event.dart';
+part 'funds_state.dart';
 
 class FundsBloc extends Bloc<FundsEvent, FundsState> {
   final GetFunds getFunds;
