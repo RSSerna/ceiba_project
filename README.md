@@ -125,7 +125,3 @@ Si deseas ejecutar en la web:
 3. Haz tus cambios y agrega pruebas.
 4. Ejecuta `flutter test` para asegurar que las pruebas pasen.
 5. Envía una solicitud de pull.
-
-## Licencia
-
-Este proyecto está licenciado bajo la Licencia MIT - consulta el archivo [LICENSE](LICENSE) para más detalles.
