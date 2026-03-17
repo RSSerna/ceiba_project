@@ -10,6 +10,24 @@ Una aplicación de Flutter para gestionar suscripciones a fondos, permitiendo a 
 - Ver historial de transacciones
 - Almacenamiento persistente de datos usando SharedPreferences
 
+## Capturas de pantalla
+
+### Pantalla principal
+
+![Home](assets/screenshots/home.png)
+
+### Diálogo de suscripción
+
+![Suscribir](assets/screenshots/suscribir.png)
+
+### Fondo con datos
+
+![Fondo con datos](assets/screenshots/fondocondatos.png)
+
+### Historial de compras
+
+![Historial](assets/screenshots/historial.png)
+
 ## Prerrequisitos
 
 Antes de comenzar, asegúrate de tener Flutter instalado en tu máquina. Sigue la guía oficial de instalación de Flutter para tu plataforma:
