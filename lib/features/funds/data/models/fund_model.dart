@@ -17,15 +17,6 @@ class FundModel extends Fund {
     );
   }
 
-  Map<String, dynamic> toJson() {
-    return {
-      _id: id,
-      _name: name,
-      _category: category,
-      _minimumAmount: minimumAmount,
-    };
-  }
-
   static const String _id = 'id';
   static const String _name = 'name';
   static const String _category = 'category';

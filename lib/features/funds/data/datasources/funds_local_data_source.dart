@@ -174,10 +174,6 @@ class FundsLocalDataSourceImpl implements FundsLocalDataSource {
     );
     // Save updated state to persistence
     await persistenceService.saveAll(_funds, _transactions, _balance);
-    print('Test');
-    print(
-      '${(await persistenceService.loadTransactions()).length} transactions after subscribe',
-    );
   }
 
   @override

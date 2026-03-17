@@ -30,18 +30,6 @@ class FundTransactionModel extends FundTransaction {
     );
   }
 
-  Map<String, dynamic> toJson() {
-    return {
-      _id: id,
-      _fundId: fundId,
-      _fundName: fundName,
-      _type: type.name,
-      _amount: amount,
-      _notificationMethod: notificationMethod.name,
-      _createdAt: createdAt.toIso8601String(),
-    };
-  }
-
   static const String _id = 'id';
   static const String _fundId = 'fundId';
   static const String _fundName = 'fundName';

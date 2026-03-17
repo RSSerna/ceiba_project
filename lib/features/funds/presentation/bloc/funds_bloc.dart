@@ -44,7 +44,6 @@ class FundsBloc extends Bloc<FundsEvent, FundsState> {
     final balanceResult = await getBalance(const NoParams());
     final transactionsResult = await getTransactions(const NoParams());
 
-    print('Funds result: ${fundsResult.isFailure}');
     if (fundsResult.isFailure) {
       emit(
         state.copyWith(
@@ -55,7 +54,6 @@ class FundsBloc extends Bloc<FundsEvent, FundsState> {
       return;
     }
 
-    print('Balance result: ${balanceResult.isFailure}');
     if (balanceResult.isFailure) {
       emit(
         state.copyWith(
@@ -66,7 +64,6 @@ class FundsBloc extends Bloc<FundsEvent, FundsState> {
       return;
     }
 
-    print('Transactions result: ${transactionsResult.isFailure}');
     if (transactionsResult.isFailure) {
       emit(
         state.copyWith(
@@ -76,8 +73,6 @@ class FundsBloc extends Bloc<FundsEvent, FundsState> {
       );
       return;
     }
-
-    print('Correct');
 
     final funds = fundsResult.value!;
     final balance = balanceResult.value!;

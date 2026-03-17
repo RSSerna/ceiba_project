@@ -37,12 +37,10 @@ class PersistenceService {
   Future<List<FundTransaction>> loadTransactions() async {
     final prefs = await SharedPreferences.getInstance();
     final transactionsJson = prefs.getStringList(_transactionsKey) ?? [];
-    print(transactionsJson);
-    var data = transactionsJson
+
+    return transactionsJson
         .map((e) => FundTransaction.fromJson(jsonDecode(e)))
         .toList();
-    print('Loaded transactions: $data');
-    return data;
   }
 
   Future<void> saveBalance(double balance) async {
