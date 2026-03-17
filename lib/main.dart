@@ -25,7 +25,7 @@ class CeibaApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: BlocProvider(
-        create: (_) => getIt<FundsBloc>()..add(const LoadFunds()),
+        create: (_) => getIt<FundsBloc>()..add(const LoadFundsEvent()),
         child: const FundsPage(),
       ),
     );

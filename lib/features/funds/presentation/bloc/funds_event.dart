@@ -7,8 +7,8 @@ abstract class FundsEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-class LoadFunds extends FundsEvent {
-  const LoadFunds();
+class LoadFundsEvent extends FundsEvent {
+  const LoadFundsEvent();
 }
 
 class SubscribeToFundRequested extends FundsEvent {
@@ -26,10 +26,10 @@ class SubscribeToFundRequested extends FundsEvent {
   List<Object?> get props => [fundId, amount, notificationMethod];
 }
 
-class CancelSubscriptionRequested extends FundsEvent {
+class CancelSubscriptionRequestedEvent extends FundsEvent {
   final String fundId;
 
-  const CancelSubscriptionRequested({required this.fundId});
+  const CancelSubscriptionRequestedEvent({required this.fundId});
 
   @override
   List<Object?> get props => [fundId];

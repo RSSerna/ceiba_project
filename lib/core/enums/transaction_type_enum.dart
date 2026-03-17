@@ -21,4 +21,11 @@ enum TransactionType {
   final String label;
   final IconData icon;
   final Color color;
+
+  static TransactionType fromName(String name) {
+    return TransactionType.values.firstWhere(
+      (e) => e.name == name,
+      orElse: () => throw ArgumentError('No TransactionType with name $name'),
+    );
+  }
 }

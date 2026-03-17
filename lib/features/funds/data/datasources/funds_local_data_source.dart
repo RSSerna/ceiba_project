@@ -2,6 +2,7 @@ import 'dart:async';
 
 import '../../../../core/enums/enums.dart';
 import '../../../../core/errors/exceptions.dart';
+import '../../../../core/services/persistence_service.dart';
 import '../models/fund_model.dart';
 import '../models/fund_transaction_model.dart';
 
@@ -18,6 +19,10 @@ abstract class FundsLocalDataSource {
 }
 
 class FundsLocalDataSourceImpl implements FundsLocalDataSource {
+  final PersistenceService persistenceService;
+
+  FundsLocalDataSourceImpl({required this.persistenceService});
+
   static const _initialBalance = 500000.0;
 
   final List<FundModel> _funds = const [
@@ -60,21 +65,72 @@ class FundsLocalDataSourceImpl implements FundsLocalDataSource {
   @override
   Future<List<FundModel>> getFunds() async {
     await Future.delayed(const Duration(milliseconds: 300));
+
+    // Try to load from persistence first
+    final persistedFunds = await persistenceService.loadFunds();
+    if (persistedFunds.isNotEmpty) {
+      return persistedFunds
+          .map(
+            (f) => FundModel(
+              id: f.id,
+              name: f.name,
+              category: f.category,
+              minimumAmount: f.minimumAmount,
+            ),
+          )
+          .toList();
+    }
+
+    // If no persisted data, use default and save
+    await persistenceService.saveFunds(_funds);
     return List<FundModel>.unmodifiable(_funds);
   }
 
   @override
   Future<double> getBalance() async {
     await Future.delayed(const Duration(milliseconds: 200));
+
+    // Try to load from persistence first
+    final persistedBalance = await persistenceService.loadBalance();
+    if (persistedBalance > 0) {
+      _balance = persistedBalance;
+      return _balance;
+    }
+
+    // If no persisted data, use default and save
+    await persistenceService.saveBalance(_initialBalance);
     return _balance;
   }
 
   @override
   Future<List<FundTransactionModel>> getTransactions() async {
     await Future.delayed(const Duration(milliseconds: 300));
-    final sorted = List<FundTransactionModel>.from(_transactions);
-    sorted.sort((a, b) => b.createdAt.compareTo(a.createdAt));
-    return sorted;
+
+    // Try to load from persistence first
+    final persistedTransactions = await persistenceService.loadTransactions();
+    if (persistedTransactions.isNotEmpty) {
+      _transactions.clear();
+      _transactions.addAll(
+        persistedTransactions.map(
+          (t) => FundTransactionModel(
+            id: t.id,
+            fundId: t.fundId,
+            fundName: t.fundName,
+            type: t.type,
+            amount: t.amount,
+            notificationMethod: t.notificationMethod,
+            createdAt: t.createdAt,
+          ),
+        ),
+      );
+      final sorted = List<FundTransactionModel>.from(_transactions);
+      sorted.sort((a, b) => b.createdAt.compareTo(a.createdAt));
+      return sorted;
+    }
+
+    // If no persisted data, use default (empty) and save
+    await persistenceService.saveTransactions(_transactions);
+    return [];
   }
 
   @override
@@ -116,6 +172,12 @@ class FundsLocalDataSourceImpl implements FundsLocalDataSource {
         createdAt: DateTime.now(),
       ),
     );
+    // Save updated state to persistence
+    await persistenceService.saveAll(_funds, _transactions, _balance);
+    print('Test');
+    print(
+      '${(await persistenceService.loadTransactions()).length} transactions after subscribe',
+    );
   }
 
   @override
@@ -148,5 +210,8 @@ class FundsLocalDataSourceImpl implements FundsLocalDataSource {
         createdAt: DateTime.now(),
       ),
     );
+
+    // Save updated state to persistence
+    await persistenceService.saveAll(_funds, _transactions, _balance);
   }
 }

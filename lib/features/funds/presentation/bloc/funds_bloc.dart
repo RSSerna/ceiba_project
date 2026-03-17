@@ -29,18 +29,22 @@ class FundsBloc extends Bloc<FundsEvent, FundsState> {
     required this.subscribeToFund,
     required this.cancelSubscription,
   }) : super(const FundsState()) {
-    on<LoadFunds>(_onLoadFunds);
+    on<LoadFundsEvent>(_onLoadFunds);
     on<SubscribeToFundRequested>(_onSubscribe);
-    on<CancelSubscriptionRequested>(_onCancel);
+    on<CancelSubscriptionRequestedEvent>(_onCancel);
   }
 
-  Future<void> _onLoadFunds(LoadFunds event, Emitter<FundsState> emit) async {
+  Future<void> _onLoadFunds(
+    LoadFundsEvent event,
+    Emitter<FundsState> emit,
+  ) async {
     emit(state.copyWith(status: FundsStatus.loading, errorMessage: null));
 
     final fundsResult = await getFunds(const NoParams());
     final balanceResult = await getBalance(const NoParams());
     final transactionsResult = await getTransactions(const NoParams());
 
+    print('Funds result: ${fundsResult.isFailure}');
     if (fundsResult.isFailure) {
       emit(
         state.copyWith(
@@ -51,6 +55,7 @@ class FundsBloc extends Bloc<FundsEvent, FundsState> {
       return;
     }
 
+    print('Balance result: ${balanceResult.isFailure}');
     if (balanceResult.isFailure) {
       emit(
         state.copyWith(
@@ -61,6 +66,7 @@ class FundsBloc extends Bloc<FundsEvent, FundsState> {
       return;
     }
 
+    print('Transactions result: ${transactionsResult.isFailure}');
     if (transactionsResult.isFailure) {
       emit(
         state.copyWith(
@@ -71,12 +77,18 @@ class FundsBloc extends Bloc<FundsEvent, FundsState> {
       return;
     }
 
+    print('Correct');
+
+    final funds = fundsResult.value!;
+    final balance = balanceResult.value!;
+    final transactions = transactionsResult.value!;
+
     emit(
       state.copyWith(
         status: FundsStatus.success,
-        funds: fundsResult.value!,
-        balance: balanceResult.value!,
-        transactions: transactionsResult.value!,
+        funds: funds,
+        balance: balance,
+        transactions: transactions,
         errorMessage: null,
       ),
     );
@@ -106,11 +118,11 @@ class FundsBloc extends Bloc<FundsEvent, FundsState> {
       return;
     }
 
-    add(const LoadFunds());
+    add(const LoadFundsEvent());
   }
 
   Future<void> _onCancel(
-    CancelSubscriptionRequested event,
+    CancelSubscriptionRequestedEvent event,
     Emitter<FundsState> emit,
   ) async {
     emit(state.copyWith(status: FundsStatus.loading, errorMessage: null));
@@ -129,7 +141,7 @@ class FundsBloc extends Bloc<FundsEvent, FundsState> {
       return;
     }
 
-    add(const LoadFunds());
+    add(const LoadFundsEvent());
   }
 
   String _failureMessage(Failure failure) {

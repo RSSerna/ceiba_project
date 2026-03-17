@@ -22,6 +22,32 @@ class FundTransaction extends Equatable {
     required this.createdAt,
   });
 
+  factory FundTransaction.fromJson(Map<String, dynamic> json) {
+    return FundTransaction(
+      id: json[_id] as String,
+      fundId: json[_fundId] as String,
+      fundName: json[_fundName] as String,
+      type: TransactionType.fromName(json[_type] as String),
+      amount: (json[_amount] as num).toDouble(),
+      notificationMethod: notificationFromString(
+        json[_notificationMethod] as String,
+      ),
+      createdAt: DateTime.parse(json[_createdAt] as String),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      _id: id,
+      _fundId: fundId,
+      _fundName: fundName,
+      _type: type.index,
+      _amount: amount,
+      _notificationMethod: notificationMethod.index,
+      _createdAt: createdAt.toIso8601String(),
+    };
+  }
+
   @override
   List<Object?> get props => [
     id,
@@ -32,4 +58,12 @@ class FundTransaction extends Equatable {
     notificationMethod,
     createdAt,
   ];
+
+  static const String _id = 'id';
+  static const String _fundId = 'fundId';
+  static const String _fundName = 'fundName';
+  static const String _type = 'type';
+  static const String _amount = 'amount';
+  static const String _notificationMethod = 'notificationMethod';
+  static const String _createdAt = 'createdAt';
 }

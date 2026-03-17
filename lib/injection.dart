@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 
+import 'core/services/persistence_service.dart';
 import 'features/funds/data/datasources/funds_local_data_source.dart';
 import 'features/funds/data/repositories/funds_repository_impl.dart';
 import 'features/funds/domain/repositories/funds_repository.dart';
@@ -13,9 +14,12 @@ import 'features/funds/presentation/bloc/funds_bloc.dart';
 final getIt = GetIt.instance;
 
 Future<void> initDependencies() async {
+  // Core
+  getIt.registerLazySingleton<PersistenceService>(() => PersistenceService());
+
   // Features - Funds
   getIt.registerLazySingleton<FundsLocalDataSource>(
-    () => FundsLocalDataSourceImpl(),
+    () => FundsLocalDataSourceImpl(persistenceService: getIt()),
   );
 
   getIt.registerLazySingleton<FundsRepository>(
