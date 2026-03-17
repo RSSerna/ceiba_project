@@ -17,6 +17,7 @@ class CeibaApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'BTG - Fondos',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(

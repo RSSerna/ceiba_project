@@ -10,6 +10,13 @@ Una aplicación de Flutter para gestionar suscripciones a fondos, permitiendo a 
 - Ver historial de transacciones
 - Almacenamiento persistente de datos usando SharedPreferences
 
+## Cómo funciona
+
+1. **Ver fondos disponibles**: En la pantalla principal se muestra la lista de fondos disponibles para suscribirse.
+2. **Suscribirse a un fondo**: Al seleccionar un fondo, se abre un diálogo donde puedes ingresar el monto a invertir y elegir el método de notificación. El sistema valida que el monto sea igual o mayor al mínimo.
+3. **Cancelar una suscripción**: Desde la lista de fondos suscritos puedes cancelar una suscripción y el saldo se actualizará automáticamente.
+4. **Ver historial**: En la pestaña de transacciones puedes ver el historial completo de suscripciones y cancelaciones.
+
 ## Capturas de pantalla
 
 ### Pantalla principal
