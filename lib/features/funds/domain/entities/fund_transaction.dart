@@ -29,7 +29,7 @@ class FundTransaction extends Equatable {
       fundName: json[_fundName] as String,
       type: TransactionType.fromName(json[_type] as String),
       amount: (json[_amount] as num).toDouble(),
-      notificationMethod: notificationFromString(
+      notificationMethod: NotificationMethodExtension.fromString(
         json[_notificationMethod] as String,
       ),
       createdAt: DateTime.parse(json[_createdAt] as String),
@@ -41,9 +41,9 @@ class FundTransaction extends Equatable {
       _id: id,
       _fundId: fundId,
       _fundName: fundName,
-      _type: type.index,
+      _type: type.name,
       _amount: amount,
-      _notificationMethod: notificationMethod.index,
+      _notificationMethod: notificationMethod.name,
       _createdAt: createdAt.toIso8601String(),
     };
   }

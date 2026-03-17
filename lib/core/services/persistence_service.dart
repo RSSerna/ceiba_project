@@ -80,4 +80,9 @@ class PersistenceService {
       'balance': results[2] as double,
     };
   }
+
+  Future<void> clearAll() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.clear();
+  }
 }
