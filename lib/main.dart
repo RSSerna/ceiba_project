@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 
+import 'core/routes/app_router.dart';
 import 'injection.dart';
-import 'features/funds/presentation/bloc/funds_bloc.dart';
-import 'features/funds/presentation/pages/funds_page.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,18 +11,6 @@ Future<void> main() async {
 
 class CeibaApp extends StatelessWidget {
   const CeibaApp({super.key});
-
-  static final _router = GoRouter(
-    routes: [
-      GoRoute(
-        path: '/',
-        builder: (context, state) => BlocProvider(
-          create: (_) => getIt<FundsBloc>()..add(const LoadFundsEvent()),
-          child: const FundsPage(),
-        ),
-      ),
-    ],
-  );
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +23,7 @@ class CeibaApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      routerConfig: _router,
+      routerConfig: AppRouter.router,
     );
   }
 }
