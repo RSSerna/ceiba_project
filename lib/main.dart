@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import 'injection.dart';
 import 'features/funds/presentation/bloc/funds_bloc.dart';
@@ -14,21 +15,30 @@ Future<void> main() async {
 class CeibaApp extends StatelessWidget {
   const CeibaApp({super.key});
 
+  static final _router = GoRouter(
+    routes: [
+      GoRoute(
+        path: '/',
+        builder: (context, state) => BlocProvider(
+          create: (_) => getIt<FundsBloc>()..add(const LoadFundsEvent()),
+          child: const FundsPage(),
+        ),
+      ),
+    ],
+  );
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       title: 'BTG - Fondos',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Color.fromARGB(255, 25, 90, 180),
+          seedColor: const Color.fromARGB(255, 25, 90, 180),
         ),
         useMaterial3: true,
       ),
-      home: BlocProvider(
-        create: (_) => getIt<FundsBloc>()..add(const LoadFundsEvent()),
-        child: const FundsPage(),
-      ),
+      routerConfig: _router,
     );
   }
 }
