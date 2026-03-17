@@ -17,9 +17,11 @@ class CeibaApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Ceiba - Fondos',
+      title: 'BTG - Fondos',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Color.fromARGB(255, 25, 90, 180),
+        ),
         useMaterial3: true,
       ),
       home: BlocProvider(

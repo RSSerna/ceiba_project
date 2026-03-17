@@ -1,3 +1,4 @@
+import 'package:ceiba_project/features/funds/presentation/pages/funds_loading_skeleton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,7 +18,7 @@ class FundsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Fondos Ceiba'), centerTitle: true),
+      appBar: AppBar(title: const Text('BTG - Fondos'), centerTitle: true),
       body: BlocConsumer<FundsBloc, FundsState>(
         listener: (context, state) {
           if (state.errorMessage != null &&
@@ -28,29 +29,48 @@ class FundsPage extends StatelessWidget {
           }
         },
         builder: (context, state) {
-          if (state.status == FundsStatus.loading) {
-            return const Center(child: CircularProgressIndicator());
+          final isInitialLoading =
+              state.status == FundsStatus.loading && state.funds.isEmpty;
+          final showOverlay =
+              state.status == FundsStatus.loading && state.funds.isNotEmpty;
+
+          if (isInitialLoading) {
+            return const FundsLoadingSkeleton();
           }
 
           return DefaultTabController(
             length: 2,
-            child: Column(
+            child: Stack(
               children: [
-                _BalanceHeader(balance: state.balance),
-                const TabBar(
-                  tabs: [
-                    Tab(text: 'Fondos'),
-                    Tab(text: 'Historial'),
+                Column(
+                  children: [
+                    _BalanceHeader(balance: state.balance),
+                    const TabBar(
+                      tabs: [
+                        Tab(text: 'Fondos'),
+                        Tab(text: 'Historial'),
+                      ],
+                    ),
+                    Expanded(
+                      child: TabBarView(
+                        children: [
+                          _FundsTab(state: state),
+                          _TransactionsTab(transactions: state.transactions),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
-                Expanded(
-                  child: TabBarView(
-                    children: [
-                      _FundsTab(state: state),
-                      _TransactionsTab(transactions: state.transactions),
-                    ],
+                if (showOverlay)
+                  Positioned.fill(
+                    child: AbsorbPointer(
+                      absorbing: true,
+                      child: Container(
+                        color: Colors.black26,
+                        child: const Center(child: CircularProgressIndicator()),
+                      ),
+                    ),
                   ),
-                ),
               ],
             ),
           );
